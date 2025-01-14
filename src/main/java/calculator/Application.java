@@ -8,16 +8,14 @@ public class Application {
 
     public static void main(String[] args) {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
-        String input = Console.readLine();
+        String input = InputReader.readInput();
 
         // 빈 입력값일 경우 결과를 0으로 반환
-        if (isInputEmpty(input)) {
+        if (InputValidator.isInputEmpty(input)) {
             System.out.println("result : 0");
             return;
         }
-
-
-        int result = getSeparatorAndNumbers(input);
+        int result = String(input);
         System.out.println("result : " + result);
     }
 
