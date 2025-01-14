@@ -1,8 +1,6 @@
 package calculator;
 
-import camp.nextstep.edu.missionutils.Console;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class Application {
 
@@ -10,50 +8,17 @@ public class Application {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
         String input = InputReader.readInput();
 
-        // 빈 입력값일 경우 결과를 0으로 반환
+        // 빈 입력값 처리
         if (InputValidator.isInputEmpty(input)) {
             System.out.println("result : 0");
             return;
         }
-        int result = String(input);
-        System.out.println("result : " + result);
-    }
 
-    public static int getSeparatorAndNumbers(String input) {
-        String delimiter = ",|:";
-        String numbers = input;
-
-        Matcher matcher = Pattern.compile("//(.)\\\\n(.*)").matcher(input);
-        if (matcher.matches()) {
-            delimiter = Pattern.quote(matcher.group(1));
-            numbers = matcher.group(2);
+        try {
+            int result = StringParser.parseAndCalculate(input);
+            System.out.println("result : " + result);
+        } catch (IllegalArgumentException e) {
+            System.err.println("에러: " + e.getMessage());
         }
-
-        return sumNumber(numbers, delimiter);
     }
-
-    private static int sumNumber(String numbers, String delimiter) {
-        String[] tokens = separateNumber(numbers, delimiter);
-        int sum = 0;
-
-        for (String token : tokens) {
-            if (!token.isEmpty()) {
-                int number = convertNumber(token);
-                sum += number;
-            }
-        }
-        return sum;
-    }
-
-    private static String[] separateNumber(String numbers, String delimiter) {
-        return numbers.split(delimiter);
-    }
-
-    private static int convertNumber(String token) {
-        int number = Integer.parseInt(token);
-        validateIsInputNegative(number);
-        return number;
-    }
-
-
 }
