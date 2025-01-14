@@ -55,14 +55,5 @@ public class Application {
         return number;
     }
 
-    // 입력값이 비어 있는지 확인
-    private static boolean isInputEmpty(String input) {
-        return input == null || input.trim().isEmpty();
-    }
 
-    private static void validateIsInputNegative(int number) {
-        if (number < 0) {
-            throw new IllegalArgumentException("음수는 허용되지 않습니다: " + number);
-        }
-    }
 }
